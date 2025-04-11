@@ -85,7 +85,16 @@
   <div id="entries"></div>
 
   <script>
-    const entries = [];
+    let entries = [];
+
+    // 🔄 저장된 항목 불러오기
+    window.onload = function () {
+      const savedEntries = localStorage.getItem("englishJournal");
+      if (savedEntries) {
+        entries = JSON.parse(savedEntries);
+        displayEntries();
+      }
+    };
 
     function addEntry() {
       const sentence = document.getElementById("sentence").value;
@@ -102,8 +111,10 @@
       };
 
       entries.push(entry);
+      localStorage.setItem("englishJournal", JSON.stringify(entries)); // 저장
       displayEntries();
 
+      // 입력창 초기화
       document.getElementById("sentence").value = "";
       document.getElementById("meaning").value = "";
       document.getElementById("notes").value = "";
