@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My English Journal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      padding: 12px;
+      font-size: 1rem;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .entry {
+      background: #fff;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      input, textarea, button {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 My English Journal</h1>
+  <div class="form-container">
+    <input type="text" id="sentence" placeholder="Enter English sentence" />
+    <input type="text" id="meaning" placeholder="Enter Korean meaning" />
+    <textarea id="notes" placeholder="Enter notes or vocabulary"></textarea>
+    <button onclick="addEntry()">Save Sentence</button>
+  </div>
+
+  <div id="entries"></div>
+
+  <script>
+    const entries = [];
+
+    function addEntry() {
+      const sentence = document.getElementById("sentence").value;
+      const meaning = document.getElementById("meaning").value;
+      const notes = document.getElementById("notes").value;
+
+      if (!sentence) return alert("Please enter a sentence!");
+
+      const entry = {
+        sentence,
+        meaning,
+        notes,
+        date: new Date().toLocaleDateString()
+      };
+
+      entries.push(entry);
+      displayEntries();
+
+      document.getElementById("sentence").value = "";
+      document.getElementById("meaning").value = "";
+      document.getElementById("notes").value = "";
+    }
+
+    function displayEntries() {
+      const container = document.getElementById("entries");
+      container.innerHTML = "";
+      entries.forEach((e) => {
+        container.innerHTML += `
+          <div class="entry">
+            <strong>${e.date}</strong><br/>
+            ✏️ <strong>Sentence:</strong> ${e.sentence}<br/>
+            🇰🇷 <strong>Meaning:</strong> ${e.meaning}<br/>
+            🧠 <strong>Notes:</strong> ${e.notes}
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
